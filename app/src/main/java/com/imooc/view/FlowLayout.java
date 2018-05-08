@@ -11,7 +11,10 @@ import android.view.ViewGroup;
 
 public class FlowLayout extends ViewGroup
 {
-
+    /**
+     * the tag click event callback
+     */
+    OnTagClickListener mOnTagClickListener;
 	public FlowLayout(Context context, AttributeSet attrs, int defStyle)
 	{
 		super(context, attrs, defStyle);
@@ -127,7 +130,16 @@ public class FlowLayout extends ViewGroup
 
 		for (int i = 0; i < cCount; i++)
 		{
-			View child = getChildAt(i);
+            final int j = i;
+			final View child = getChildAt(i);
+            child.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mOnTagClickListener != null) {
+                        mOnTagClickListener.onItemClick(j);
+                    }
+                }
+            });
 			MarginLayoutParams lp = (MarginLayoutParams) child
 					.getLayoutParams();
 
@@ -209,5 +221,8 @@ public class FlowLayout extends ViewGroup
 	{
 		return new MarginLayoutParams(getContext(), attrs);
 	}
+    public void setOnTagClickListener(OnTagClickListener onTagClickListener) {
+        this.mOnTagClickListener = onTagClickListener;
+    }
 
 }
