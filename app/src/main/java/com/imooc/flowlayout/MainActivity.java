@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.imooc.view.FlowLayout;
+import com.imooc.view.OnTagClickListener;
 
 public class MainActivity extends Activity
 {
@@ -23,7 +25,12 @@ public class MainActivity extends Activity
 		setContentView(R.layout.activity_main);
 
 		mFlowLayout = (FlowLayout) findViewById(R.id.id_flowlayout);
-
+		mFlowLayout.setOnTagClickListener(new OnTagClickListener() {
+			@Override
+			public void onItemClick(int position) {
+				Toast.makeText(getApplicationContext(),"选择："+mVals[position],Toast.LENGTH_LONG).show();
+			}
+		});
 		initData();
 	}
 
